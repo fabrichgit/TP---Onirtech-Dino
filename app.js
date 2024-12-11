@@ -1,42 +1,29 @@
-const dino = document.getElementById("dino")
+const dino = document.getElementById("dino");
 
 window.addEventListener("keypress", (event) => {
-console.log(event.key);
+    console.log(event.key);
 
-    if (event.key === " ") {    
-        dino.classList.add("sauter")
+    if (event.key === " ") {
+        dino.classList.add("sauter");
 
         setTimeout(() => {
-            dino.classList.remove("sauter")
+            dino.classList.remove("sauter");
         }, 1000);
     }
-
-})
+});
 
 setInterval(() => {
-    // obtenir right de l'obstacle
-    const obstacle = document.getElementById("obs")
-    const rightObstacle = getComputedStyle(obstacle).right
+    // Obtenir l'obstacle et ses dimensions
+    const obstacle = document.getElementById("obs");
+    const rightObstacle = parseInt(getComputedStyle(obstacle).right, 10);
 
-    // console.log(rightObstacle);
-    
-    // obtenir right du joueur
-    const rightJoueur = getComputedStyle(dino).right
-console.log(rightJoueur);
+    // Obtenir les dimensions du joueur
+    const rightJoueur = parseInt(getComputedStyle(dino).right, 10);
 
-    // // console.log(rightJoueur);
-    if (rightObstacle === rightJoueur) {
-        alert("gameover")
+    // Détecter la collision avec une marge
+    const marge = 5; // Ajuster selon la précision souhaitée
+
+    if (Math.abs(rightObstacle - rightJoueur) < marge) {
+        alert("collision");
     }
-
-    // verfication
-}, 0);
-
-
-// preciser: quand on clique seulement le boutton "espace"
-// ==> mapiasa event.key
-
-
-// game over
-// ===> 1) rehefa mitovy ny "right" an'i obstacle sy joueur
-// ==> toujours verifier a chaque petit interval
+}, 10);
